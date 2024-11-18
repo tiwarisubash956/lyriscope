@@ -1,0 +1,19 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:lyriscope/Features/Auth/Presentation/Screens/LoginScreen/LoginScreen.dart';
+import 'package:lyriscope/Features/Auth/Presentation/Screens/SendPasswordResetEmailScreen/SendPasswordResetEmail.dart';
+import 'package:lyriscope/Features/Auth/Presentation/Screens/SignUpScreen/SignUpScreen.dart';
+import 'package:lyriscope/Features/Auth/Presentation/Screens/SplashScreen/SplashScreen.dart';
+
+part 'app_router.gr.dart';
+
+@AutoRouterConfig()
+class AppRouter extends _$AppRouter {
+  @override
+  // TODO: implement routes
+  List<AutoRoute> get routes => [
+        AutoRoute(page: SplashRoute.page,initial: true),
+        AutoRoute(page: SignUpRoute.page),
+        AutoRoute(page: SendPasswordResetEmailRoute.page),
+        AutoRoute(page: LoginRoute.page),
+      ];
+}

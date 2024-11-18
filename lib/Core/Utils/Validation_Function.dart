@@ -1,45 +1,21 @@
-/// Checks if string consist only Alphabet. (No Whitespace)
-bool isText(
-  String? inputString, {
-  bool isRequired = true,
-}) {
-  bool isInputStringValid = true;
-
-  if (!isRequired && (inputString == null ? true : inputString.isEmpty)) {
-    isInputStringValid = true;
+ String? validateText(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'This field cannot be empty';
+    }
+    if (value.length < 3) {
+      return 'Must be at least 3 characters long';
+    }
+    return null; // Return null if the text is valid
   }
 
-  if (inputString != null && inputString.isNotEmpty) {
-    const pattern = r'^[a-zA-Z]+$';
-
-    final regExp = RegExp(pattern);
-
-    isInputStringValid = regExp.hasMatch(inputString);
+String? validateEmail(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Please enter your email';
   }
-
-  return isInputStringValid;
-}
-
-/// Checks if string is phone number
-bool isValidPhone(
-  String? inputString, {
-  bool isRequired = true,
-}) {
-  bool isInputStringValid = true;
-
-  if (!isRequired && (inputString == null ? true : inputString.isEmpty)) {
-    isInputStringValid = true;
+  // Regular expression for validating email format
+  final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+  if (!emailRegex.hasMatch(value)) {
+    return 'Please enter a valid email address';
   }
-
-  if (inputString != null && inputString.isNotEmpty) {
-    if (inputString.length > 16 || inputString.length < 6) return false;
-
-    const pattern = r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$';
-
-    final regExp = RegExp(pattern);
-
-    isInputStringValid = regExp.hasMatch(inputString);
-  }
-
-  return isInputStringValid;
+  return null; // Return null if the email is valid
 }
