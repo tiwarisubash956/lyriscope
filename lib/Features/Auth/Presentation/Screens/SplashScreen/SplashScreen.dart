@@ -1,9 +1,4 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:lottie/lottie.dart';
-import 'package:lyriscope/Configuration/routes/app_router.dart';
-import 'package:lyriscope/Core/Utils/ConstantValue.dart';
+import '../../../../../Core/app_export.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {

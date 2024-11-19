@@ -1,7 +1,4 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
 import 'package:lyriscope/Core/app_export.dart';
-import 'package:lyriscope/Features/Auth/Widgets/CustomElevatedButton.dart';
 
 @RoutePage()
 

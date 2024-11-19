@@ -1,9 +1,6 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:lyriscope/Core/Utils/Validation_Function.dart';
+
 import 'package:lyriscope/Core/app_export.dart';
-import 'package:lyriscope/Features/Auth/Widgets/CustomElevatedButton.dart';
-import 'package:lyriscope/Features/Auth/Widgets/CustomTextFromField.dart';
+
 
 @RoutePage()
 
