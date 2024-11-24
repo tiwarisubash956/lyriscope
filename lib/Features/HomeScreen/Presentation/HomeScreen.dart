@@ -24,6 +24,18 @@ class _HomeScreenState extends State<HomeScreen> {
               fit: BoxFit.cover,
               image: AssetImage("lib/assets/images/Book2.jpg"),
             ),
+          ),
+          child: PageView(
+            scrollDirection: Axis.horizontal,
+            allowImplicitScrolling: true,
+            children: [
+              Container(
+                color: Colors.red,
+              ),
+              Container(
+                color: Colors.green,
+              )
+            ],
           )),
     );
   }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "230012424872",
+    "project_id": "lyriscope-27e45",
+    "storage_bucket": "lyriscope-27e45.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230012424872:android:ea7ab338bd4599d985e89d",
+        "android_client_info": {
+          "package_name": "com.example.lyriscope"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw9m6CACajewqp6I2tQjBvezveuqw_nC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

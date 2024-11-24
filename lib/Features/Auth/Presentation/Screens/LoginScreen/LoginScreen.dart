@@ -1,3 +1,4 @@
+import 'package:sign_in_button/sign_in_button.dart';
 
 import '../../../../../Core/app_export.dart';
 
@@ -54,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 20,
                   ),
+
                   CustomElevatedButton(
                     label: "Login",
                     onPressed: () {
@@ -63,7 +65,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                 
+
+                  SignInButton(Buttons.google, onPressed: () {}),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

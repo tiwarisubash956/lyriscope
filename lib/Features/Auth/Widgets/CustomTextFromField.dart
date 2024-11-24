@@ -9,7 +9,7 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return  TextFormField(
       validator: validator,
         style: const TextStyle(
           color: Colors.white, // Change the text color here
