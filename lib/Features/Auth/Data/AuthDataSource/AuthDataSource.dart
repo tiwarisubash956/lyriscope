@@ -4,9 +4,14 @@ import 'package:lyriscope/Core/app_export.dart';
 
 abstract class AuthDataSource {
   Future<User?> signInWithGoogle();
+  Future<User?> loginWithEmailPassword(String email, String password);
 }
 
 class AuthDataSourceimp implements AuthDataSource {
+  final FirebaseAuth firebaseAuth;
+
+  AuthDataSourceimp({required this.firebaseAuth});
+
   @override
   Future<User?> signInWithGoogle() async {
     try {
@@ -22,6 +27,18 @@ class AuthDataSourceimp implements AuthDataSource {
       final UserCredential usercredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
       return usercredential.user;
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<User?> loginWithEmailPassword(String email, String password) async {
+    try {
+      // ignore: non_constant_identifier_names
+      final UserCredential = await firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return UserCredential.user;
     } catch (e) {
       throw ServerException(e.toString());
     }

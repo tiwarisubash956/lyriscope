@@ -1,3 +1,4 @@
+import 'package:lyriscope/Features/Auth/Presentation/bloc/auth_bloc.dart';
 import 'package:sign_in_button/sign_in_button.dart';
 
 import '../../../../../Core/app_export.dart';
@@ -18,93 +19,115 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage("lib/assets/images/book.jpg"),
-          ),
-        ),
-        child: Center(
-          child: Form(
-            key: formKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Login",
-                    style: GoogleFonts.specialElite(fontSize: 30),
-                  ),
-                  CustomTextField(
-                    label: "Email",
-                    controller: emailController,
-                    validator: validateEmail,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  CustomTextField(
-                    label: "Password",
-                    controller: passwordController,
-                    validator: validateText,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  CustomElevatedButton(
-                    label: "Login",
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {}
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-                  SignInButton(Buttons.google, onPressed: () {}),
-
-                  Row(
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthenticatedState) {
+            context.router.replace(const HomeRoute());
+          }
+          if (state is AuthErrorState) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.Message)));
+          }
+        },
+        builder: (context, state) {
+          return Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage("lib/assets/images/book.jpg"),
+              ),
+            ),
+            child: Center(
+              child: Form(
+                key: formKey,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Dont Have Account",
-                        style: GoogleFonts.montserrat(fontSize: 14),
+                        "Login",
+                        style: GoogleFonts.specialElite(fontSize: 30),
+                      ),
+                      CustomTextField(
+                        label: "Email",
+                        controller: emailController,
+                        validator: validateEmail,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      CustomTextField(
+                        label: "Password",
+                        controller: passwordController,
+                        validator: validateText,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      CustomElevatedButton(
+                        label: "Login",
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            context.read<AuthBloc>().add(
+                                LoginWithEmailPasswordEvent(
+                                    password: passwordController.text,
+                                    email: emailController.text));
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+
+                      SignInButton(Buttons.google, onPressed: () {
+                        context.read<AuthBloc>().add(SigninwithgoogleEvent());
+                      }),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Dont Have Account",
+                            style: GoogleFonts.montserrat(fontSize: 14),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              context.router.push(const SignUpRoute());
+                            },
+                            child: Text(
+                              "Sign Up",
+                              style: GoogleFonts.montserrat(fontSize: 14),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
                       ),
                       GestureDetector(
                         onTap: () {
-                          context.router.push(const SignUpRoute());
+                          context.router
+                              .push(const SendPasswordResetEmailRoute());
                         },
                         child: Text(
-                          "Sign Up",
+                          "Forget Password?",
                           style: GoogleFonts.montserrat(fontSize: 14),
                         ),
                       )
+
+                      // Lottie Animation
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.router.push(const SendPasswordResetEmailRoute());
-                    },
-                    child: Text(
-                      "Forget Password?",
-                      style: GoogleFonts.montserrat(fontSize: 14),
-                    ),
-                  )
-
-                  // Lottie Animation
-                ],
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
