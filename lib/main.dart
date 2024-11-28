@@ -23,7 +23,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => AuthBloc(signinwithgoogle: di.sl(),signinwithemailpassword: di.sl()),
+          create: (context) => AuthBloc(
+              signinwithgoogle: di.sl(),
+              signinwithemailpassword: di.sl(),
+              signUpwithemailpassword: di.sl()),
         ),
       ],
       child: MaterialApp.router(
