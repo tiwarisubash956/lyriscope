@@ -1,6 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:lyriscope/Configuration/routes/app_router.dart';
 import 'package:lyriscope/Core/app_export.dart';
 import 'package:lyriscope/Features/Auth/Presentation/bloc/auth_bloc.dart';
 import 'injection_container.dart' as di;

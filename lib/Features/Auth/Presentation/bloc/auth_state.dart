@@ -12,7 +12,7 @@ final class AuthInitial extends AuthState {}
 class AuthErrorState extends AuthState {
   final String Message;
 
-  AuthErrorState({required this.Message});
+  const AuthErrorState({required this.Message});
 }
 
 class SigninwithgoogleSuccessState extends AuthState {}
@@ -24,5 +24,5 @@ class LoginWithEmailPasswordSuccessState extends AuthState {}
 class GetCurrentUserState extends AuthState {
   final User? user;
 
-  GetCurrentUserState({required this.user});
+  const GetCurrentUserState({required this.user});
 }

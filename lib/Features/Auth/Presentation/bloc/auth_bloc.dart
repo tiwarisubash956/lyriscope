@@ -1,5 +1,3 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lyriscope/Core/app_export.dart';
 import 'package:lyriscope/Features/Auth/Domain/UseCase/GetCurrentUser.dart';

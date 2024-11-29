@@ -11,9 +11,9 @@ typedef ResponsiveBuild = Widget Function(
 
 class Sizer extends StatelessWidget {
   const Sizer({
-    Key? key,
+    super.key,
     required this.builder,
-  }) : super(key: key);
+  });
 
   final ResponsiveBuild builder;
 
