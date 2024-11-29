@@ -6,6 +6,7 @@ abstract class AuthDataSource {
   Future<User?> signInWithGoogle();
   Future<User?> loginWithEmailPassword(String email, String password);
   Future<User?> signUpWithEmailPassword(String email, String password);
+  Future<User?> getcurrentUser();
 }
 
 class AuthDataSourceimp implements AuthDataSource {
@@ -52,6 +53,16 @@ class AuthDataSourceimp implements AuthDataSource {
       final UserCredential = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       return UserCredential.user;
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<User?> getcurrentUser() async {
+    try {
+      final User? user = firebaseAuth.currentUser;
+      return user;
     } catch (e) {
       throw ServerException(e.toString());
     }

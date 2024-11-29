@@ -29,17 +29,26 @@ class Authrepoimplo implements AuthRepository {
       throw left(ServerFailure(message: e.toString()));
     }
   }
-  
-  @override
-  Future<Either<Failure, User?>> signupWithEmailPassword(String email, String password) async {
 
-     try {
+  @override
+  Future<Either<Failure, User?>> signupWithEmailPassword(
+      String email, String password) async {
+    try {
       final result =
           await authDataSource.signUpWithEmailPassword(email, password);
       return right(result);
     } catch (e) {
       throw left(ServerFailure(message: e.toString()));
     }
-  
+  }
+
+  @override
+  Future<Either<Failure, User?>> getcurrentUser() async {
+    try {
+      final result = await authDataSource.getcurrentUser();
+      return right(result);
+    } catch (e) {
+      throw left(ServerFailure(message: e.toString()));
+    }
   }
 }

@@ -12,11 +12,11 @@ class CustomTextField extends StatelessWidget {
     return  TextFormField(
       validator: validator,
         style: const TextStyle(
-          color: Colors.white, // Change the text color here
-          fontSize: 16, // Optional: Change the font size
+          color: Colors.red, // Change the text color here
+          fontSize: 20, // Optional: Change the font size
         ),
         cursorColor: Colors.red,
-        obscureText: label == "password",
+        obscureText: label == "Password",
         controller: controller,
         decoration: InputDecoration(
             labelStyle: const TextStyle(color: Colors.black),

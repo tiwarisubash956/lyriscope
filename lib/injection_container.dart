@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:lyriscope/Features/Auth/Data/AuthDataSource/AuthDataSource.dart';
 import 'package:lyriscope/Features/Auth/Data/Repository/AuthRepoimplo.dart';
 import 'package:lyriscope/Features/Auth/Domain/Repository/AuthRepo.dart';
+import 'package:lyriscope/Features/Auth/Domain/UseCase/GetCurrentUser.dart';
 import 'package:lyriscope/Features/Auth/Domain/UseCase/SignInWithEmailPassword.dart';
 import 'package:lyriscope/Features/Auth/Domain/UseCase/SignInWithGoogle.dart';
 import 'package:lyriscope/Features/Auth/Domain/UseCase/SignUpWithEmailPassword.dart';
@@ -13,6 +14,7 @@ final sl = GetIt.instance;
 Future<void> init() async {
   sl.registerLazySingleton(() => FirebaseAuth.instance);
   sl.registerLazySingleton(() => AuthBloc(
+      getCurrentUser: sl(),
       signinwithgoogle: sl(),
       signinwithemailpassword: sl(),
       signUpwithemailpassword: sl()));
@@ -20,6 +22,7 @@ Future<void> init() async {
   sl.registerFactory(() => Signinwithgoogle(authRepository: sl()));
   sl.registerFactory(() => Signinwithemailpassword(authRepository: sl()));
   sl.registerFactory(() => SignUpwithemailpassword(authRepository: sl()));
+  sl.registerFactory(() => GetCurrentUser(authRepository: sl()));
 
   sl.registerLazySingleton<AuthRepository>(
       () => Authrepoimplo(authDataSource: sl()));

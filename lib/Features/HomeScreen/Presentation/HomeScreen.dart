@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:lyriscope/Core/app_export.dart';
 
 @RoutePage()
@@ -12,9 +12,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return PlatformScaffold(
       backgroundColor: Colors.amber[100],
-      appBar: AppBar(
+      appBar: PlatformAppBar(
           backgroundColor: Colors.amber[50], title: const Text("Home Page")),
       body: Container(
           height: double.infinity,

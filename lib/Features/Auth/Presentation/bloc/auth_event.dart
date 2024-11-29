@@ -37,3 +37,5 @@ class ForgetPasswordEvent extends AuthEvent {
   @override
   List<Object> get props => [email];
 }
+
+class GetCurrentUserEvent extends AuthEvent {}

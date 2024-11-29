@@ -4,9 +4,9 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AppConfig {
-  static const String developmentBaseUrl = 'https://localhost:7161/api/';
-  static const String stagingBaseUrl = 'https://staging.api.example.com';
-  static const String productionBaseUrl = 'https://192.168.100.11:7161/api/';
+  static const String developmentBaseUrl = '';
+  static const String stagingBaseUrl = '';
+  static const String productionBaseUrl = '';
 
   static String get baseUrl {
     if (kIsWeb) {

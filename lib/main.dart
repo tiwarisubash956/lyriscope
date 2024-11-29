@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(
+              getCurrentUser: di.sl(),
               signinwithgoogle: di.sl(),
               signinwithemailpassword: di.sl(),
               signUpwithemailpassword: di.sl()),

@@ -20,3 +20,9 @@ class SigninwithgoogleSuccessState extends AuthState {}
 class AuthenticatedState extends AuthState {}
 
 class LoginWithEmailPasswordSuccessState extends AuthState {}
+
+class GetCurrentUserState extends AuthState {
+  final User? user;
+
+  GetCurrentUserState({required this.user});
+}

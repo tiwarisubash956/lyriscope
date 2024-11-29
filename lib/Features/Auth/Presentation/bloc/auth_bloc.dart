@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lyriscope/Core/app_export.dart';
+import 'package:lyriscope/Features/Auth/Domain/UseCase/GetCurrentUser.dart';
 import 'package:lyriscope/Features/Auth/Domain/UseCase/SignInWithEmailPassword.dart';
 import 'package:lyriscope/Features/Auth/Domain/UseCase/SignInWithGoogle.dart';
 import 'package:lyriscope/Features/Auth/Domain/UseCase/SignUpWithEmailPassword.dart';
@@ -12,8 +14,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final Signinwithgoogle signinwithgoogle;
   final Signinwithemailpassword signinwithemailpassword;
   final SignUpwithemailpassword signUpwithemailpassword;
+  final GetCurrentUser getCurrentUser;
   AuthBloc(
-      {required this.signUpwithemailpassword,
+      {required this.getCurrentUser,
+      required this.signUpwithemailpassword,
       required this.signinwithgoogle,
       required this.signinwithemailpassword})
       : super(AuthInitial()) {
@@ -40,12 +44,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   AuthErrorState(Message: (failure as ServerFailure).message)),
               (success) => emit(AuthenticatedState()));
         } catch (e) {
-          emit(AuthErrorState(Message: e.toString()));
+          emit(AuthErrorState(
+              Message: "UnAuthorized User or Password or email are incorrect"));
         }
       }
-      if(event is SignUpWithEmailPasswordEvent)
-      {
-         try {
+      if (event is SignUpWithEmailPasswordEvent) {
+        try {
           final failureOrSuccess = await signUpwithemailpassword(
               SignUpWithEmailPasswordParamas(
                   email: event.email, password: event.password));
@@ -56,7 +60,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } catch (e) {
           emit(AuthErrorState(Message: e.toString()));
         }
+      }
 
+      if (event is GetCurrentUserEvent) {
+        try {
+          final failureOrSuccess = await getCurrentUser(GetCurrentUserPramas());
+          failureOrSuccess.fold(
+              (failure) => emit(
+                  AuthErrorState(Message: (failure as ServerFailure).message)),
+              (success) => emit(GetCurrentUserState(user: success)));
+        } catch (e) {
+          emit(AuthErrorState(Message: "Error Occurs while fetching data"));
+        }
       }
     });
   }

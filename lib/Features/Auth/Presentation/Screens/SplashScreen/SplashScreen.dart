@@ -1,4 +1,7 @@
-import '../../../../../Core/app_export.dart';
+// ignore_for_file: file_names
+
+import 'package:lyriscope/Core/app_export.dart';
+import 'package:lyriscope/Features/Auth/Presentation/bloc/auth_bloc.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {
@@ -21,13 +24,12 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _initializeAnimations();
 
-    // Start Lottie animation and after that, start text animations
+    // Start Lottie animation, then text animations
     Future.delayed(const Duration(seconds: 4), () {
       setState(() {
         showTextAnimation = true;
       });
       _startAnimations();
-      // ignore: use_build_context_synchronously
     });
   }
 
@@ -38,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
     for (int i = 0; i < text.length; i++) {
       AnimationController controller = AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: 800),
+        duration: const Duration(milliseconds: 50),
       );
       textControllers.add(controller);
 
@@ -49,13 +51,15 @@ class _SplashScreenState extends State<SplashScreen>
     }
   }
 
-  void _startAnimations() {
+  void _startAnimations() async {
     for (int i = 0; i < text.length; i++) {
-      Future.delayed(Duration(milliseconds: i * 100), () {
+      await Future.delayed(Duration(milliseconds: i * 200), () {
         textControllers[i].forward();
       });
     }
-    context.router.push(const LoginRoute());
+    // Navigate after all animations complete
+    // ignore: use_build_context_synchronously
+    context.read<AuthBloc>().add(GetCurrentUserEvent());
   }
 
   @override
@@ -69,52 +73,66 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage("lib/assets/images/book.jpg"),
-          ),
-        ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Lottie Animation
-              LottieBuilder.asset(
-                frameRate: const FrameRate(20),
-                "lib/assets/lottie/Animation2.json",
-                height: 200,
-                width: 200,
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is GetCurrentUserState) {
+            if (state.user != null) {
+              context.router.replace(const HomeRoute());
+            } else {
+              context.router.replace(const LoginRoute());
+            }
+          }
+        },
+        builder: (context, state) {
+          return Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage("lib/assets/images/book.jpg"),
               ),
-              const SizedBox(height: 30),
-              // Display the text animation only after the Lottie animation completes
-              if (showTextAnimation)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(text.length, (index) {
-                    return AnimatedBuilder(
-                      animation: fallingTextAnimations[index],
-                      builder: (context, child) {
-                        return Transform.translate(
-                          offset: Offset(0, fallingTextAnimations[index].value),
-                          child: Text(
-                            text[index],
-                            style: GoogleFonts.specialElite(
-                              fontSize: 40,
-                              color: Colors.black,
-                            ),
-                          ),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Lottie Animation
+                  LottieBuilder.asset(
+                    frameRate: const FrameRate(20),
+                    "lib/assets/lottie/Animation2.json",
+                    height: 200,
+                    width: 200,
+                  ),
+                  const SizedBox(height: 30),
+                  // Display the text animation only after the Lottie animation completes
+                  if (showTextAnimation)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(text.length, (index) {
+                        return AnimatedBuilder(
+                          animation: fallingTextAnimations[index],
+                          builder: (context, child) {
+                            return Transform.translate(
+                              offset:
+                                  Offset(0, fallingTextAnimations[index].value),
+                              child: Text(
+                                text[index],
+                                style: GoogleFonts.specialElite(
+                                  fontSize: 40,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            );
+                          },
                         );
-                      },
-                    );
-                  }),
-                ),
-            ],
-          ),
-        ),
+                      }),
+                    ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

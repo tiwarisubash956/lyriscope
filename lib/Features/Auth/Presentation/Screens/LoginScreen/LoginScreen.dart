@@ -15,6 +15,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+   int i =0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,10 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           if (state is AuthErrorState) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.Message)));
+                .showSnackBar(SnackBar(content: Text(state.Message.toString())));
+            setState(() {
+              i=2;
+            });
           }
         },
         builder: (context, state) {
