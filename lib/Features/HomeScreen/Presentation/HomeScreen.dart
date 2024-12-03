@@ -25,17 +25,25 @@ class _HomeScreenState extends State<HomeScreen> {
               image: AssetImage("lib/assets/images/Book2.jpg"),
             ),
           ),
-          child: PageView(
-            scrollDirection: Axis.horizontal,
-            allowImplicitScrolling: true,
-            children: [
-              Container(
-                color: Colors.red,
+          child: GestureDetector(
+            onDoubleTap: () {
+              context.router.push(const BookViewerRoute());
+            },
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 4.0,
+                crossAxisSpacing: 4.0,
+                crossAxisCount: 2,
+                childAspectRatio: 0.75,
               ),
-              Container(
-                color: Colors.green,
-              )
-            ],
+              itemCount: 100,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  color: Colors.white,
+                  child: Text(index.toString()),
+                );
+              },
+            ),
           )),
     );
   }

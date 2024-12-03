@@ -42,7 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
                   AuthErrorState(Message: (failure as ServerFailure).message)),
               (success) => emit(AuthenticatedState()));
         } catch (e) {
-          emit(AuthErrorState(
+          emit(const AuthErrorState(
               Message: "UnAuthorized User or Password or email are incorrect"));
         }
       }
@@ -51,6 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           final failureOrSuccess = await signUpwithemailpassword(
               SignUpWithEmailPasswordParamas(
                   email: event.email, password: event.password));
+
           failureOrSuccess.fold(
               (failure) => emit(
                   AuthErrorState(Message: (failure as ServerFailure).message)),
@@ -61,14 +62,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
 
       if (event is GetCurrentUserEvent) {
+        emit(AuthLoadingState());
+
         try {
           final failureOrSuccess = await getCurrentUser(GetCurrentUserPramas());
+
+          // Wait for the delay to complete
+
           failureOrSuccess.fold(
               (failure) => emit(
                   AuthErrorState(Message: (failure as ServerFailure).message)),
               (success) => emit(GetCurrentUserState(user: success)));
         } catch (e) {
-          emit(AuthErrorState(Message: "Error Occurs while fetching data"));
+          emit(const AuthErrorState(
+              Message: "Error Occurs while fetching data"));
         }
       }
     });

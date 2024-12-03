@@ -2,6 +2,7 @@
 
 import 'package:lyriscope/Core/app_export.dart';
 import 'package:lyriscope/Features/Auth/Presentation/bloc/auth_bloc.dart';
+import 'package:lyriscope/Features/Auth/Widgets/CustomProgressIndicatore.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {
@@ -15,7 +16,8 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late List<AnimationController> textControllers;
   late List<Animation<double>> fallingTextAnimations;
-  final String text = Constantvalue().appName;
+  final String text = constantvalue().appName;
+  final String appmototext = constantvalue().appMoto;
 
   bool showTextAnimation = false;
 
@@ -40,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
     for (int i = 0; i < text.length; i++) {
       AnimationController controller = AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: 50),
+        duration: const Duration(milliseconds: 0),
       );
       textControllers.add(controller);
 
@@ -75,6 +77,9 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
+          if (state is AuthLoadingState) {
+              const Center(child: LottieProgressIndicator());
+          }
           if (state is GetCurrentUserState) {
             if (state.user != null) {
               context.router.replace(const HomeRoute());
@@ -84,6 +89,7 @@ class _SplashScreenState extends State<SplashScreen>
           }
         },
         builder: (context, state) {
+          
           return Container(
             height: double.infinity,
             width: double.infinity,
@@ -128,6 +134,16 @@ class _SplashScreenState extends State<SplashScreen>
                         );
                       }),
                     ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    appmototext,
+                    style: GoogleFonts.specialElite(
+                      fontSize: 20,
+                      color: Colors.black,
+                    ),
+                  )
                 ],
               ),
             ),

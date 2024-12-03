@@ -15,10 +15,22 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AdminHomeRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AdminHomeScreen(),
+      );
+    },
+    BookViewerRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const BookViewerPage(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child:  HomeScreen(),
+        child: const HomeScreen(),
       );
     },
     LoginRoute.name: (routeData) {
@@ -46,6 +58,34 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AdminHomeScreen]
+class AdminHomeRoute extends PageRouteInfo<void> {
+  const AdminHomeRoute({List<PageRouteInfo>? children})
+      : super(
+          AdminHomeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AdminHomeRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [BookViewerPage]
+class BookViewerRoute extends PageRouteInfo<void> {
+  const BookViewerRoute({List<PageRouteInfo>? children})
+      : super(
+          BookViewerRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'BookViewerRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

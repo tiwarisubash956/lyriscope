@@ -9,9 +9,13 @@ sealed class AuthState extends Equatable {
 
 final class AuthInitial extends AuthState {}
 
+class AuthLoadingState extends AuthState {}
+
 class AuthErrorState extends AuthState {
+  // ignore: non_constant_identifier_names
   final String Message;
 
+  // ignore: non_constant_identifier_names
   const AuthErrorState({required this.Message});
 }
 
