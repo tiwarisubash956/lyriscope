@@ -11,7 +11,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool issearched = false;
   
   @override
   Widget build(BuildContext context) {
@@ -31,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
         ],
+        
       ),
       body: Container(
           height: double.infinity,
