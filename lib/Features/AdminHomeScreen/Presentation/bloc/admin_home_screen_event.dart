@@ -11,8 +11,8 @@ class UploadBookEvent extends AdminHomeScreenEvent {
   final String authorName;
   final String title;
   final String genre;
-  final File bookpdf;
-  final File coverimage;
+  final File? bookpdf;
+  final File? coverimage;
 
   const UploadBookEvent(
       {required this.authorName,

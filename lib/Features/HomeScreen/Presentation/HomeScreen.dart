@@ -1,5 +1,6 @@
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:lyriscope/Core/app_export.dart';
+import 'package:lyriscope/Features/HomeScreen/Widgets/custom_searchbar.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -10,12 +11,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool issearched = false;
+  
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
       backgroundColor: Colors.amber[100],
       appBar: PlatformAppBar(
-          backgroundColor: Colors.amber[50], title: const Text("Home Page")),
+        backgroundColor: Colors.amber[50],
+        title: const Text("Home"),
+        trailingActions:  [
+         IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(items: []),
+              );
+            },
+          ),
+        ],
+      ),
       body: Container(
           height: double.infinity,
           width: double.infinity,
@@ -33,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 mainAxisSpacing: 4.0,
                 crossAxisSpacing: 4.0,
-                crossAxisCount: 2,
+                crossAxisCount: 2,   
                 childAspectRatio: 0.75,
               ),
               itemCount: 100,

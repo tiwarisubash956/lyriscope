@@ -21,8 +21,8 @@ class UploadBookparamas {
   final String authorName;
   final String genre;
   final String bookName;
-  final File bookpdf;
-  final File coverimage;
+  final File? bookpdf;
+  final File? coverimage;
 
   UploadBookparamas(
       {required this.authorName,

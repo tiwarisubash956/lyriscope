@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lyriscope/Core/app_export.dart';
+import 'package:lyriscope/Features/AdminHomeScreen/Presentation/bloc/admin_home_screen_bloc.dart';
 import 'package:lyriscope/Features/Auth/Presentation/bloc/auth_bloc.dart';
 import 'injection_container.dart' as di;
 
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
               signinwithemailpassword: di.sl(),
               signUpwithemailpassword: di.sl()),
         ),
+        BlocProvider(create: (_) => AdminHomeScreenBloc(uploadbook: di.sl()))
       ],
       child: MaterialApp.router(
           debugShowCheckedModeBanner: false,
